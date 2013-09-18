@@ -27,4 +27,32 @@ public class Carrinho {
         }
         return menor;
     }
+    
+    public Produto maiorProduto() throws CarrinhoVazioExpected {
+        if (produtos.isEmpty()) {
+            throw new CarrinhoVazioExpected();
+        }
+        Produto maior = produtos.get(0);
+        for (Produto produto : produtos) {
+            if (produto.getPreco() > maior.getPreco()) {
+                maior = produto;
+            }
+        }
+        return maior;
+    }
+    
+    public double totalCarrinho(){
+        if(produtos.isEmpty()) return 0.0;
+        double total = 0.0;
+        for(Produto produto : produtos){
+            total += produto.getPreco();
+        }
+        return total;
+    }
+    
+    public void removeProduto(Produto prodVelho)throws CarrinhoVazioExpected{
+        if(produtos.isEmpty()) throw new CarrinhoVazioExpected();
+        produtos.remove(prodVelho);
+    }
+    
 }

@@ -1,6 +1,6 @@
 package br.calebe.exemplos.ex01;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class CarrinhoTest {
     public void colocandoZeroProduto() throws CarrinhoVazioExpected {
         Produto menor;
         menor = carrinho.menorProduto();
-        assertArrayEquals(new Object[]{null}, new Object[]{menor});
+        Assert.assertEquals(null, menor);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class CarrinhoTest {
         carrinho.add(livro);
         Produto menor;
         menor = carrinho.menorProduto();
-        assertArrayEquals(new Object[]{livro}, new Object[]{menor});
+        Assert.assertEquals(livro, menor);
     }
 
     @Test
@@ -37,15 +37,31 @@ public class CarrinhoTest {
         carrinho.add(deitel);
         Produto menor;
         menor = carrinho.menorProduto();
-        assertArrayEquals(new Object[]{livro}, new Object[]{menor});
+        Assert.assertEquals(livro, menor);
     }
-
+    
     @Test
     public void identidadeDeProdutos() throws CarrinhoVazioExpected {
         Produto original = new Produto("Java em 24 horas", 50.00);
         carrinho.add(original);
         Produto copia = new Produto("Java em 24 horas", 50.00);
         original = carrinho.menorProduto();
-        assertArrayEquals(new Object[]{original}, new Object[]{copia});
+        Assert.assertEquals(original, copia);
     }
+    
+    @Test
+    public void confereSoma() throws CarrinhoVazioExpected{
+        Produto produto = new Produto("Produto",50.00);
+        Produto produtoCaro = new Produto("ProdutoCaro",75.00);
+        carrinho.add(produto);
+        carrinho.add(produtoCaro);
+        Assert.assertEquals(produtoCaro, carrinho.maiorProduto());
+        
+    }
+    
+    @Test
+    public void confereRemocao()throws CarrinhoVazioExpected{
+        //TODO
+    }
+    
 }
