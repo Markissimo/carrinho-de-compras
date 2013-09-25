@@ -1,5 +1,7 @@
 package br.calebe.exemplos.ex01;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +52,7 @@ public class CarrinhoTest {
     }
     
     @Test
-    public void confereSoma() throws CarrinhoVazioExpected{
+    public void comparaMaior() throws CarrinhoVazioExpected{
         Produto produto = new Produto("Produto",50.00);
         Produto produtoCaro = new Produto("ProdutoCaro",75.00);
         carrinho.add(produto);
@@ -60,8 +62,53 @@ public class CarrinhoTest {
     }
     
     @Test
-    public void confereRemocao()throws CarrinhoVazioExpected{
-        //TODO
+    public void comparaSoma(){
+        Produto produto = new Produto("Produto Simples",50.00);
+        Produto produtoComposto = new Produto("Produto Composto",100.00);
+        carrinho.add(produto);
+        carrinho.add(produtoComposto);
+        double soma = produto.getPreco() + produtoComposto.getPreco();
+        Assert.assertEquals(soma, carrinho.totalCarrinho(),0.01);
+    }
+            
+    @Test
+    public void confereRemocao() throws CarrinhoVazioExpected{
+        Produto produto = new Produto("Produto Normal",50.00);
+        Produto produtoASerRemovido = new Produto("Produto Removido",100.00);
+        carrinho.add(produto);
+        carrinho.add(produtoASerRemovido);
+        carrinho.removeProduto(produtoASerRemovido);
+        boolean isRemoved = true; 
+        for(Produto p : carrinho.getListaProdutos()){
+            if(p.equals(produtoASerRemovido)){
+               isRemoved = false;
+            }
+        }
+        Assert.assertTrue(isRemoved);
+    }
+    
+    @Test
+    public void confereListaCarrinho(){
+        Produto produto = new Produto("Produto 1",20.00);
+        Produto produto2 = new Produto("Produto 2",30.00);
+        carrinho.add(produto);
+        carrinho.add(produto2);
+        List<Produto> lsListaRetornada = carrinho.getListaProdutos();
+        boolean isOk = true;
+        for(Produto p : lsListaRetornada){    
+            if(!(p.equals(produto)||p.equals(produto2))){
+                isOk = false;
+            }
+        }  
+        Assert.assertTrue(isOk);
+    }
+    
+    @Test
+    public void adicionaJogo() throws CarrinhoVazioExpected{
+        Jogo jogo = new Jogo("GTA V", 200.00);
+        carrinho.add(jogo);
+        Jogo teste = (Jogo)carrinho.menorProduto();
+        Assert.assertEquals(jogo, teste);
     }
     
 }

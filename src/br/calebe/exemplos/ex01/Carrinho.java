@@ -41,6 +41,10 @@ public class Carrinho {
         return maior;
     }
     
+    public List<Produto> getListaProdutos(){
+        return produtos;
+    }
+    
     public double totalCarrinho(){
         if(produtos.isEmpty()) return 0.0;
         double total = 0.0;
