@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrinho {
-
+    
+    private static int counterPedido=0;
+    private int pedido;
     private List<Produto> produtos;
 
     public Carrinho() {
         produtos = new ArrayList<>();
+        pedido=counterPedido;
+        counterPedido++;
+        
     }
 
     public void add(Produto produto) {
@@ -54,6 +59,12 @@ public class Carrinho {
         return total;
     }
     
+    public int getPedido(){
+        return this.pedido;
+    }
+    public static void resetCounterPedido(){
+        counterPedido = 0;
+    }
     public void removeProduto(Produto prodVelho)throws CarrinhoVazioExpected{
         if(produtos.isEmpty()) throw new CarrinhoVazioExpected();
         produtos.remove(prodVelho);
